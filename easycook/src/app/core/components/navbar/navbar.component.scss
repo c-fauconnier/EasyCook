@@ -57,8 +57,15 @@ a {
   letter-spacing: 2px;
 }
 
-a:hover,
-a:focus {
-  color: #0acce4;
+a:hover {
+  color: #e91e63;
   text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+}
+
+.active-link {
+  color: #e91e63;
 }
