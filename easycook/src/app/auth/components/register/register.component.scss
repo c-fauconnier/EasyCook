@@ -1,0 +1,114 @@
+// form {
+//   display: grid;
+//   background-color: #f2f2f2;
+//   padding-bottom: 20px;
+// }
+
+// input[type="text"],
+// input[type="email"],
+// input[type="password"],
+// select {
+//   width: 100%;
+//   padding: 12px 20px;
+//   display: inline-block;
+//   border: 1px solid #ccc;
+//   border-radius: 4px;
+//   box-sizing: border-box;
+// }
+
+// mat-card-actions {
+//   width: 50%;
+//   background-color: #e91e63;
+
+//   padding: 14px 20px;
+//   margin: auto;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   text-align: center;
+// }
+// button[type="submit"] {
+//   background-color: transparent;
+//   color: white;
+// }
+
+// mat-card-actions:hover {
+//   background-color: #ca114e;
+// }
+
+// div {
+//   border-radius: 5px;
+//   padding: 20px;
+//   width: 80%;
+//   margin: auto;
+// }
+mat-form-field {
+  width: 45%;
+  &.full-width {
+    width: 80%;
+    margin-left: 10%;
+  }
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-card {
+  margin: 20px;
+  padding: 20px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+}
+
+mat-card-actions {
+  text-align: center;
+  margin: auto;
+  //background-color: #e91e63;
+}
+button {
+  background-color: #e91e63 !important;
+  color: white !important;
+}
+
+button:hover {
+  background-color: #ca114e !important;
+}
+
+.main-form {
+  padding-bottom: 30px;
+  position: relative;
+  max-width: 60%;
+  margin: auto;
+}
+
+.loading {
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  left: -10px;
+  right: -10px;
+  height: inherit;
+  z-index: 10;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-text {
+  color: red;
+}
+
+.mat-mdc-card-title {
+  margin: 20px 0 0 20px;
+}
+
+.mat-mdc-progress-spinner::ng-deep circle,
+.mat-spinner::ng-deep circle {
+  stroke: #e91e63 !important;
+}

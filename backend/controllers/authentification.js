@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 module.exports.register = async function (req, res) {
   var user = new User();
-  //console.log(req.body);
+  console.log(req.body);
 
   user.username = req.body.username;
   user.email = req.body.email;
@@ -18,14 +18,19 @@ module.exports.register = async function (req, res) {
       token = user.generateJwt();
       console.log("user: " + user.username + " created");
       res.status(200);
-      res.json({
+      res.status(200).json({
         token: token,
       });
     })
     .catch((err) => {
-      invalidField = Object.keys(err.keyValue)[0];
-      msg = invalidField + " is already taken";
-      res.json({ error: msg });
+      if (err.keyValue) {
+        invalidField = Object.keys(err.keyValue)[0];
+        msg = invalidField + " is already taken";
+      } else if (err.errors) {
+        msg = "invalid field name";
+      }
+
+      res.status(400).json({ error: msg });
     });
 };
 

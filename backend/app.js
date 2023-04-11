@@ -13,5 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 
 app.use("/api/profile", userRoutes);
-
+// error handlers
+// Catch unauthorized errors
+app.use(function (err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    res.status(401);
+    res.json({ message: err.name + ": " + err.message });
+  }
+});
 module.exports = app;
