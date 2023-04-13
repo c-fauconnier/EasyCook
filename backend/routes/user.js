@@ -10,7 +10,7 @@ const auth = jwt({
   algorithms: ["HS256"],
 });
 
-router.get("/all", auth, userController.allUsers);
+//router.get("/all", auth, userController.allUsers);
 router.post("/register", authController.register);
 router.post("/login", authController.login);
 router.get("/user", auth, userController.profileRead);

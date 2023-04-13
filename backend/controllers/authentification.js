@@ -4,7 +4,6 @@ const User = require("../models/user");
 
 module.exports.register = async function (req, res) {
   var user = new User();
-  console.log(req.body);
 
   user.username = req.body.username;
   user.email = req.body.email;

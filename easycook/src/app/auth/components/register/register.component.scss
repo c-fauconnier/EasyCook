@@ -1,59 +1,25 @@
-// form {
-//   display: grid;
-//   background-color: #f2f2f2;
-//   padding-bottom: 20px;
-// }
-
-// input[type="text"],
-// input[type="email"],
-// input[type="password"],
-// select {
-//   width: 100%;
-//   padding: 12px 20px;
-//   display: inline-block;
-//   border: 1px solid #ccc;
-//   border-radius: 4px;
-//   box-sizing: border-box;
-// }
-
-// mat-card-actions {
-//   width: 50%;
-//   background-color: #e91e63;
-
-//   padding: 14px 20px;
-//   margin: auto;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-//   text-align: center;
-// }
-// button[type="submit"] {
-//   background-color: transparent;
-//   color: white;
-// }
-
-// mat-card-actions:hover {
-//   background-color: #ca114e;
-// }
-
-// div {
-//   border-radius: 5px;
-//   padding: 20px;
-//   width: 80%;
-//   margin: auto;
-// }
 mat-form-field {
-  width: 45%;
+  flex-basis: 100%;
   &.full-width {
     width: 80%;
     margin-left: 10%;
   }
 }
 
+@media screen and (min-width: 1023px) {
+  mat-form-field {
+    flex-basis: 49%;
+  }
+  .main-form {
+    max-width: 80% !important;
+  }
+}
+
 .form-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-content: space-between;
+  flex-wrap: wrap;
 }
 
 .form-card {
@@ -68,7 +34,6 @@ mat-form-field {
 mat-card-actions {
   text-align: center;
   margin: auto;
-  //background-color: #e91e63;
 }
 button {
   background-color: #e91e63 !important;
@@ -82,9 +47,13 @@ button:hover {
 .main-form {
   padding-bottom: 30px;
   position: relative;
-  max-width: 60%;
+  max-width: 100%;
   margin: auto;
 }
+
+// .reduced-input {
+//   width: 49%;
+// }
 
 .loading {
   position: absolute;
@@ -102,6 +71,7 @@ button:hover {
 
 .error-text {
   color: red;
+  margin: auto;
 }
 
 .mat-mdc-card-title {

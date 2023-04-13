@@ -11,9 +11,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { confirmEqualValidator } from './validators/confirm-equal.validator';
-import { validValidator } from './validators/valid.validator';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -27,6 +27,8 @@ export class RegisterComponent implements OnInit {
   };
 
   loading = false;
+  requestError = String;
+  showRequestError = false;
   mainForm!: FormGroup;
   personalInfoForm!: FormGroup;
   emailCtrl!: FormControl;
@@ -42,19 +44,10 @@ export class RegisterComponent implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private router: Router,
-    private formBuilder: FormBuilder //private complexFormService: ComplexFormService
+    private formBuilder: FormBuilder,
+    private toast: ToastrService
   ) {}
 
-  register() {
-    this.auth.register(this.credentials).subscribe(
-      () => {
-        this.router.navigateByUrl('/profile');
-      },
-      (err) => {
-        console.error(err.error);
-      }
-    );
-  }
   ngOnInit(): void {
     this.initFormControls();
     this.initMainForm();
@@ -86,11 +79,15 @@ export class RegisterComponent implements OnInit {
         //updateOn: 'blur',
       }
     );
-    this.passwordCtrl = this.formBuilder.control('', Validators.required);
+    this.passwordCtrl = this.formBuilder.control('', [
+      Validators.required,
+      Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$'),
+    ]);
     this.confirmPasswordCtrl = this.formBuilder.control(
       '',
       Validators.required
     );
+
     this.loginInfoForm = this.formBuilder.group(
       {
         username: ['', Validators.required],
@@ -112,26 +109,17 @@ export class RegisterComponent implements OnInit {
           this.confirmEmailCtrl.value
       )
     );
-  }
-
-  private setEmailValidators(showEmailCtrl: boolean) {
-    if (showEmailCtrl) {
-      this.emailCtrl.addValidators([Validators.required, Validators.email]);
-      this.confirmEmailCtrl.addValidators([
-        Validators.required,
-        Validators.email,
-        validValidator(),
-      ]);
-    } else {
-      this.emailCtrl.clearValidators();
-      this.confirmEmailCtrl.clearValidators();
-    }
-    this.emailCtrl.updateValueAndValidity();
-    this.confirmEmailCtrl.updateValueAndValidity();
+    this.showPasswordError$ = this.loginInfoForm.statusChanges.pipe(
+      map(
+        (status) =>
+          status === 'INVALID' &&
+          this.passwordCtrl.value &&
+          this.confirmPasswordCtrl.value
+      )
+    );
   }
 
   onSubmitForm() {
-    console.log(this.mainForm.value);
     const formData = this.mainForm.value;
     const json = {
       username: formData.loginInfo.username,
@@ -140,21 +128,34 @@ export class RegisterComponent implements OnInit {
       lastName: formData.personalInfo.lastName,
       email: formData.email.email,
     };
-    console.log(json);
-    // this.loading = true;
-    // this.complexFormService
-    //   .saveUserInfo(this.mainForm.value)
-    //   .pipe(
-    //     tap((saved) => {
-    //       this.loading = false;
-    //       if (saved) {
-    //         this.resetForm();
-    //       } else {
-    //         console.error("Échec de l'enregistrement");
-    //       }
-    //     })
-    //   )
-    //   .subscribe();
+    this.loading = true;
+    this.auth
+      .register(json)
+      .pipe(
+        tap(
+          (saved) => {
+            this.loading = false;
+            if (saved) {
+              //this.resetForm();
+              this.router.navigateByUrl('/auth/login');
+              this.showSuccess();
+            }
+          },
+          (err) => {
+            this.loading = false;
+            this.showRequestError = true;
+            this.requestError = err.error.error;
+          }
+        )
+      )
+      .subscribe();
+  }
+
+  showSuccess() {
+    this.toast.success('Inscription effectuée', 'Succès', {
+      timeOut: 3000,
+      toastClass: 'toast-custom',
+    });
   }
 
   private resetForm() {
@@ -166,8 +167,8 @@ export class RegisterComponent implements OnInit {
       return 'Ce champ est requis';
     } else if (ctrl.hasError('email')) {
       return "Merci d'entrer une adresse mail valide";
-    } else if (ctrl.hasError('validValidator')) {
-      return 'Cette adresse est incorrecte';
+    } else if (ctrl.hasError('pattern')) {
+      return 'Le mot de passe ne répond pas aux critères';
     } else {
       return 'Ce champ contient une erreur';
     }
