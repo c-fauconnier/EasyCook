@@ -1,1 +1,57 @@
-<p>login works!</p>
+<!-- <form (submit)="login()">
+  <div class="form-group">
+    <label for="username">Nom d'utilisateur</label>
+    <input
+      type="text"
+      class="form-control"
+      name="username"
+      placeholder=""
+      [(ngModel)]="credentials.username"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Mot de passe</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      placeholder="Password"
+      [(ngModel)]="credentials.password"
+    />
+  </div>
+  <button type="submit" class="btn btn-default">Connexion</button>
+</form> -->
+
+<div class="center">
+  <mat-card class="main-form">
+    <mat-card-title>Connexion</mat-card-title>
+    <mat-card class="form-card">
+      <mat-card-subtitle>Informations personnelles</mat-card-subtitle>
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Nom d'utilisateur</mat-label>
+          <input
+            type="text"
+            matInput
+            name="username"
+            [(ngModel)]="credentials.username"
+          />
+          <mat-error>Ce champ est requis</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mot de passe</mat-label>
+          <input
+            type="password"
+            matInput
+            name="password"
+            [(ngModel)]="credentials.password"
+          />
+          <mat-error>Ce champ est requis</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card-actions>
+      <button (click)="login()" mat-flat-button>ENREGISTRER</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

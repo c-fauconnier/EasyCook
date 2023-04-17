@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  AuthenticationService,
-  TokenPayload,
-} from 'src/app/auth/services/authentication.service';
+import { AuthenticationService } from 'src/app/auth/services/authentication.service';
 import {
   AbstractControl,
   FormBuilder,
@@ -20,12 +17,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  credentials: TokenPayload = {
-    email: '',
-    username: '',
-    password: '',
-  };
-
   loading = false;
   requestError = String;
   showRequestError = false;
@@ -67,7 +58,7 @@ export class RegisterComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
     });
-    this.emailCtrl = this.formBuilder.control('');
+    this.emailCtrl = this.formBuilder.control('', Validators.required);
     this.confirmEmailCtrl = this.formBuilder.control('');
     this.emailForm = this.formBuilder.group(
       {
@@ -83,10 +74,7 @@ export class RegisterComponent implements OnInit {
       Validators.required,
       Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$'),
     ]);
-    this.confirmPasswordCtrl = this.formBuilder.control(
-      '',
-      Validators.required
-    );
+    this.confirmPasswordCtrl = this.formBuilder.control('');
 
     this.loginInfoForm = this.formBuilder.group(
       {

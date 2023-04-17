@@ -24,14 +24,14 @@
         <mat-error>{{ getFormControlErrorText(emailCtrl) }}</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Confirmer votre adresse mail</mat-label>
+        <mat-label>Confirmez votre adresse mail</mat-label>
         <input type="text" matInput formControlName="confirm" email />
         <mat-error>{{ getFormControlErrorText(confirmEmailCtrl) }}</mat-error>
       </mat-form-field>
     </div>
-    <small class="error-text" *ngIf="showEmailError$ | async"
-      >Les adresses ne correspondent pas</small
-    >
+    <small class="error-text" *ngIf="showEmailError$ | async">
+      Les adresses ne correspondent pas
+    </small>
   </mat-card>
 
   <mat-card class="form-card" [formGroup]="loginInfoForm">
@@ -56,7 +56,7 @@
         >
       </mat-form-field>
       <mat-form-field appearance="fill">
-        <mat-label>Confirmer votre mot de passe</mat-label>
+        <mat-label>Confirmez votre mot de passe</mat-label>
         <input type="password" matInput formControlName="confirmPassword" />
         <mat-error>{{
           getFormControlErrorText(confirmPasswordCtrl)

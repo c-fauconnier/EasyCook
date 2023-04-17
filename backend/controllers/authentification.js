@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const User = require("../models/user");
 
 module.exports.register = async function (req, res) {
-  var user = new User();
+  var user = new User(req.body);
+  console.log(req.body);
 
-  user.username = req.body.username;
-  user.email = req.body.email;
+  // user.username = req.body.username;
+  // user.email = req.body.email;
 
   await user.setPassword(req.body.password);
 

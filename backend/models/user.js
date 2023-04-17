@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
 });
 
 userSchema.methods.setPassword = async function (password) {
@@ -42,6 +50,8 @@ userSchema.methods.generateJwt = function () {
       _id: this._id,
       email: this.email,
       username: this.username,
+      firstName: this.firstName,
+      lastName: this.lastName,
       exp: parseInt(expiry.getTime() / 1000),
     },
     process.env.JWT_SECRET

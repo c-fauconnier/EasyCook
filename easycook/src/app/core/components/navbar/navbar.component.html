@@ -13,13 +13,21 @@
     <img src="/assets/icons/close.png" alt="" />
   </button>
   <ul role="menubar">
-    <li role="menuitem">
+    <li role="menuitem" *ngIf="!auth.isLoggedIn()">
       <a routerLink="auth/register" routerLinkActive="active-link"
         >Inscription</a
       >
     </li>
-    <li role="menuitem">
+    <li role="menuitem" *ngIf="!auth.isLoggedIn()">
       <a routerLink="auth/login" routerLinkActive="active-link">Connexion</a>
+    </li>
+    <li role="menuitem" *ngIf="auth.isLoggedIn()">
+      <a routerLink="profile" routerLinkActive="active-link">{{
+        auth.getUserDetails().username
+      }}</a>
+    </li>
+    <li role="menuitem" *ngIf="auth.isLoggedIn()">
+      <a (click)="auth.logout()">Déconnexion</a>
     </li>
   </ul>
 </nav>

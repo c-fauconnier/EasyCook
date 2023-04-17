@@ -8,7 +8,9 @@ import { environment } from '../../environments/environment';
 export interface UserDetails {
   _id: string;
   email: string;
-  name: string;
+  username: string;
+  firstName: string;
+  lastName: string;
   exp: number;
   iat: number;
 }
@@ -18,9 +20,11 @@ interface TokenResponse {
 }
 
 export interface TokenPayload {
-  email: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
   password: string;
-  username?: string;
+  username: string;
 }
 
 @Injectable()
@@ -36,7 +40,7 @@ export class AuthenticationService {
 
   private getToken(): string {
     if (!this.token) {
-      this.token = JSON.parse(localStorage.getItem('mean-token')!);
+      this.token = localStorage.getItem('mean-token')!;
     }
     return this.token;
   }
@@ -49,6 +53,7 @@ export class AuthenticationService {
 
   public getUserDetails(): UserDetails {
     const token = this.getToken();
+    //console.log(token);
     let payload;
     if (token) {
       payload = token.split('.')[1];
@@ -72,6 +77,7 @@ export class AuthenticationService {
     method: 'post' | 'get',
     type: 'login' | 'register' | 'profile',
     user?: TokenPayload
+    //formValue?: registerFormValue
   ): Observable<any> {
     let base;
     const url = environment.apiUrl + 'profile/';
