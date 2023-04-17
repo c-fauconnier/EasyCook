@@ -11,6 +11,9 @@ export interface UserDetails {
   username: string;
   firstName: string;
   lastName: string;
+  role: string;
+  savedRecipes: Array<string>;
+  myRecipes: Array<string>;
   exp: number;
   iat: number;
 }

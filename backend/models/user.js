@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
@@ -26,6 +27,23 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+  savedRecipes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Recipe",
+    },
+  ],
+  myRecipes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Recipe",
+    },
+  ],
 });
 
 userSchema.methods.setPassword = async function (password) {
@@ -52,6 +70,9 @@ userSchema.methods.generateJwt = function () {
       username: this.username,
       firstName: this.firstName,
       lastName: this.lastName,
+      role: this.role,
+      savedRecipes: this.savedRecipes,
+      myRecipes: this.myRecipes,
       exp: parseInt(expiry.getTime() / 1000),
     },
     process.env.JWT_SECRET

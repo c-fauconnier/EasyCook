@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const passport = require("passport");
 const userRoutes = require("./routes/user");
+const recipeRoutes = require("./routes/recipe");
 require("./models/db");
 require("./config/passport");
 
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 
 app.use("/api/profile", userRoutes);
+app.use("/api/recipes", recipeRoutes);
 // error handlers
 // Catch unauthorized errors
 app.use(function (err, req, res, next) {

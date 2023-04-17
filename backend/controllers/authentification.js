@@ -4,11 +4,6 @@ const User = require("../models/user");
 
 module.exports.register = async function (req, res) {
   var user = new User(req.body);
-  console.log(req.body);
-
-  // user.username = req.body.username;
-  // user.email = req.body.email;
-
   await user.setPassword(req.body.password);
 
   user
@@ -53,7 +48,7 @@ module.exports.login = async function (req, res) {
       });
     } else {
       // If user is not found
-      res.status(401).json(info);
+      res.status(404).json(info);
     }
   })(req, res);
 };
