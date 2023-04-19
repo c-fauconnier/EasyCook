@@ -1,27 +1,3 @@
-<!-- <form (submit)="login()">
-  <div class="form-group">
-    <label for="username">Nom d'utilisateur</label>
-    <input
-      type="text"
-      class="form-control"
-      name="username"
-      placeholder=""
-      [(ngModel)]="credentials.username"
-    />
-  </div>
-  <div class="form-group">
-    <label for="password">Mot de passe</label>
-    <input
-      type="password"
-      class="form-control"
-      name="password"
-      placeholder="Password"
-      [(ngModel)]="credentials.password"
-    />
-  </div>
-  <button type="submit" class="btn btn-default">Connexion</button>
-</form> -->
-
 <div class="center">
   <mat-card class="main-form">
     <mat-card-title>Connexion</mat-card-title>
@@ -35,6 +11,7 @@
             matInput
             name="username"
             [(ngModel)]="credentials.username"
+            required
           />
           <mat-error>Ce champ est requis</mat-error>
         </mat-form-field>
@@ -45,13 +22,21 @@
             matInput
             name="password"
             [(ngModel)]="credentials.password"
+            required
           />
           <mat-error>Ce champ est requis</mat-error>
         </mat-form-field>
       </div>
     </mat-card>
+    <small class="error-text" *ngIf="showRequestError">{{
+      requestError
+    }}</small>
     <mat-card-actions>
-      <button (click)="login()" mat-flat-button>ENREGISTRER</button>
+      <button (click)="login()" mat-flat-button>Se connecter</button>
     </mat-card-actions>
+    <small class="tip"
+      >Pas encore inscrit ?
+      <a routerLink="/auth/register">Créez un compte ici</a></small
+    >
   </mat-card>
 </div>

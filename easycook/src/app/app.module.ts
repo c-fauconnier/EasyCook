@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LandingPageComponent } from './core/components/landing-page/landing-page.component';
 import { ToastrModule } from 'ngx-toastr';
 import { AuthenticationService } from './auth/services/authentication.service';
+import { AuthGuardService } from './auth/services/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent, LandingPageComponent],
@@ -21,7 +22,7 @@ import { AuthenticationService } from './auth/services/authentication.service';
       positionClass: 'toast-top-right',
     }),
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, AuthGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
