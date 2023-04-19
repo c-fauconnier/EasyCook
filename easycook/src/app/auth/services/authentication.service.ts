@@ -9,11 +9,7 @@ export interface UserDetails {
   _id: string;
   email: string;
   username: string;
-  firstName: string;
-  lastName: string;
   role: string;
-  savedRecipes: Array<string>;
-  myRecipes: Array<string>;
   exp: number;
   iat: number;
 }

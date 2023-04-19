@@ -7,9 +7,7 @@ import { AuthenticationService } from 'src/app/auth/services/authentication.serv
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent extends AppComponent {
-  constructor(public override auth: AuthenticationService) {
-    super(auth);
-  }
+export class ProfileComponent {
+  constructor(public auth: AuthenticationService) {}
   public user = this.auth.getUserDetails();
 }

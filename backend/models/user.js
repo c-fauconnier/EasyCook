@@ -68,11 +68,7 @@ userSchema.methods.generateJwt = function () {
       _id: this._id,
       email: this.email,
       username: this.username,
-      firstName: this.firstName,
-      lastName: this.lastName,
       role: this.role,
-      savedRecipes: this.savedRecipes,
-      myRecipes: this.myRecipes,
       exp: parseInt(expiry.getTime() / 1000),
     },
     process.env.JWT_SECRET

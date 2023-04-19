@@ -6,16 +6,11 @@ import { AuthenticationService } from 'src/app/auth/services/authentication.serv
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent extends AppComponent implements OnInit {
+export class NavbarComponent implements OnInit {
   // boolean to add dynamically the 'aria-hidden' by attribute binding.
   isMobile = window.innerWidth <= 1023;
 
-  constructor(
-    private el: ElementRef,
-    public override auth: AuthenticationService
-  ) {
-    super(auth);
-  }
+  constructor(private el: ElementRef, public auth: AuthenticationService) {}
 
   ngOnInit(): void {
     this.onCloseWhenClickingOnMobile();
