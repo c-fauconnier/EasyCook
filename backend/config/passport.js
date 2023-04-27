@@ -5,7 +5,7 @@ var User = mongoose.model("User");
 
 passport.use(
   new LocalStrategy(function (username, password, done) {
-    User.findOne({ username: username }).then((res) => {
+    User.findOne({ "personalInfos.username": username }).then((res) => {
       // Return if user not found in database
       if (!res) {
         return done(null, false, {

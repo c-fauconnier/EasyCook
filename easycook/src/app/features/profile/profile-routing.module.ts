@@ -9,6 +9,10 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuardService],
   },
+  // {
+  //   path: '/edit',
+  //   component:
+  // }
 ];
 
 @NgModule({
