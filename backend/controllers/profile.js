@@ -22,7 +22,7 @@ module.exports.profileRead = async function (req, res) {
     try {
       // Otherwise continue
       const id = new ObjectId(req.auth._id);
-      console.log(id);
+      //console.log(id);
       const result = await User.aggregate([
         {
           $match: {

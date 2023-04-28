@@ -27,6 +27,7 @@ const recipeSchema = new Schema({
   total_ratings: Number,
   total_comments: Number,
   last_modification: Date,
+  estimated_time: String,
   comments: [
     {
       //author: { type: Schema.Types.ObjectId, ref: "User" },

@@ -12,7 +12,8 @@ const auth = jwt({
 //router.get("/all", auth, userController.allUsers);
 // router.post("/register", authController.register);
 // router.post("/login", authController.login);
-// router.get("/user", auth, userController.profileRead);
+//router.get("/user", auth, userController.profileRead);
+router.get("", recipeController.getAll);
 router.post("/create", auth, recipeController.createRecipe);
 
 module.exports = router;

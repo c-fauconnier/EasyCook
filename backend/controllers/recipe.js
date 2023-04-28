@@ -5,17 +5,6 @@ module.exports.createRecipe = async function (req, res) {
     console.log(req.body, req.auth);
     let data = req.body;
     data.author = req.auth._id;
-    // let paragraphs = data.paragraphs;
-
-    // if (paragraphs.length > 1) {
-    //   let order = 1;
-    //   for (let paragraph in paragraphs) {
-    //     paragraph.number = order;
-    //     order++;
-    //   }
-    // }
-    // data.paragraphs = paragraphs;
-    // console.log(data);
 
     var recipe = new Recipe(data);
     let recipeId = await recipe
@@ -40,4 +29,25 @@ module.exports.createRecipe = async function (req, res) {
       res.status(200).json("Recipe created and user modified");
     });
   } catch (err) {}
+};
+
+module.exports.getAll = async function (req, res) {
+  try {
+    //const all = await Recipe.find();
+    const allWithId = await Recipe.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "author",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+      { $unwind: "$author" },
+    ]);
+    //console.log(all);
+    res.status(200).json(allWithId);
+  } catch (error) {
+    console.log(error);
+  }
 };
