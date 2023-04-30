@@ -9,20 +9,22 @@ import { LandingPageComponent } from './core/components/landing-page/landing-pag
 import { ToastrModule } from 'ngx-toastr';
 import { AuthenticationService } from './auth/services/authentication.service';
 import { AuthGuardService } from './auth/services/auth-guard.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, LandingPageComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CoreModule,
-    SharedModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-top-right',
-    }),
-  ],
-  providers: [AuthenticationService, AuthGuardService],
-  bootstrap: [AppComponent],
+    declarations: [AppComponent, LandingPageComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        CoreModule,
+        SharedModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-top-right',
+        }),
+        HttpClientModule,
+    ],
+    providers: [AuthenticationService, AuthGuardService],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

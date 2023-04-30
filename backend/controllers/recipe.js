@@ -46,6 +46,21 @@ module.exports.getAll = async function (req, res) {
       { $unwind: "$author" },
     ]);
     //console.log(all);
+    let dtoArray = [];
+    for (const recipe of allWithId) {
+      let dto = {};
+      dto["title"] = recipe.title;
+      dto["author"] = recipe.author.personalInfos.username;
+      dtoArray.push(dto);
+    }
+    for (const recipe of allWithId) {
+      console.log(recipe);
+      if (recipe.author) {
+        const username = recipe.author.personalInfos.username;
+        recipe.author = username;
+      }
+    }
+
     res.status(200).json(allWithId);
   } catch (error) {
     console.log(error);
