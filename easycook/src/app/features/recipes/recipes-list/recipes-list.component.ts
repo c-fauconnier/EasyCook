@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Recipe } from 'src/app/core/interfaces/recipe.interface';
+import { RecipeCard } from 'src/app/core/interfaces/recipeCard.interface';
 
 @Component({
     selector: 'app-recipes-list',
@@ -7,5 +7,5 @@ import { Recipe } from 'src/app/core/interfaces/recipe.interface';
     styleUrls: ['./recipes-list.component.scss'],
 })
 export class RecipesListComponent {
-    @Input() recipesList: Array<Recipe> = [];
+    @Input() recipesList: Array<RecipeCard> = [];
 }

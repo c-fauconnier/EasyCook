@@ -14,19 +14,23 @@
     </button>
     <ul role="menubar">
         <li role="menuitem">
-            <a routerLink="recipes" routerLinkActive="active-link">Recettes</a>
+            <a routerLink="recipes/all" routerLinkActive="active-link">Recettes</a>
         </li>
-        <li role="menuitem" *ngIf="!auth.isLoggedIn()">
-            <a routerLink="auth/register" routerLinkActive="active-link">Inscription</a>
-        </li>
-        <li role="menuitem" *ngIf="!auth.isLoggedIn()">
-            <a routerLink="auth/login" routerLinkActive="active-link">Connexion</a>
-        </li>
-        <li role="menuitem" *ngIf="auth.isLoggedIn()">
-            <a routerLink="profile" routerLinkActive="active-link">{{ auth.getUserDetails().username }}</a>
-        </li>
-        <li role="menuitem" *ngIf="auth.isLoggedIn()">
-            <a (click)="auth.logout()">Déconnexion</a>
-        </li>
+        <ng-container *ngIf="!auth.isLoggedIn()">
+            <li role="menuitem">
+                <a routerLink="auth/register" routerLinkActive="active-link">Inscription</a>
+            </li>
+            <li role="menuitem">
+                <a routerLink="auth/login" routerLinkActive="active-link">Connexion</a>
+            </li>
+        </ng-container>
+        <ng-container *ngIf="auth.isLoggedIn()">
+            <li role="menuitem">
+                <a routerLink="profile" routerLinkActive="active-link">{{ auth.getUserDetails().username }}</a>
+            </li>
+            <li role="menuitem">
+                <a (click)="auth.logout()">Déconnexion</a>
+            </li>
+        </ng-container>
     </ul>
 </nav>

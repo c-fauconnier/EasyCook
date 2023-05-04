@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Recipe } from 'src/app/core/interfaces/recipe.interface';
+import { RecipeCard } from 'src/app/core/interfaces/recipeCard.interface';
+import { Router } from '@angular/router';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
     selector: 'app-recipe-card',
@@ -7,5 +9,13 @@ import { Recipe } from 'src/app/core/interfaces/recipe.interface';
     styleUrls: ['./recipe-card.component.scss'],
 })
 export class RecipeCardComponent {
-    @Input() recipe: Recipe = {} as Recipe;
+    @Input() recipeCard: RecipeCard = {} as RecipeCard;
+
+    constructor(private router: Router) {}
+
+    // Redirects to specific recipe
+    onClickCard() {
+        console.log(this.recipeCard._id);
+        this.router.navigateByUrl(`recipes/${this.recipeCard._id}`);
+    }
 }

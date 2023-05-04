@@ -1,25 +1,30 @@
 const Recipe = require("../models/recipe");
 const User = require("../models/user");
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
+
 module.exports.createRecipe = async function (req, res) {
   try {
-    console.log(req.body, req.auth);
+    //console.log(req.body, req.auth);
     let data = req.body;
-    data.author = req.auth._id;
+    // retrieving authors id and username with auth token
+    data.author = {};
+    data.author._id = req.auth._id;
+    data.author.username = req.auth.username;
 
+    //saving recipe to Mongo
     var recipe = new Recipe(data);
     let recipeId = await recipe
       .save()
       .then(function (recipe) {
-        console.log(recipe);
         return recipe._id;
-        //res.status(200).json({ msg: "recipe created!" });
       })
       .catch((err) => {
         if (err) {
           res.status(400).json({ msg: err });
         }
       });
-    console.log(recipeId);
+    // linking newly created recipe to its author
     await User.findOneAndUpdate(
       { _id: req.auth._id },
       {
@@ -31,10 +36,46 @@ module.exports.createRecipe = async function (req, res) {
   } catch (err) {}
 };
 
+// get all recipes with resumes infos
 module.exports.getAll = async function (req, res) {
   try {
-    //const all = await Recipe.find();
-    const allWithId = await Recipe.aggregate([
+    // Getting recipes infos and mapping them to their author
+    const all = await Recipe.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "author",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+      { $unwind: "$author" },
+      { $unset: ["paragraphs", "comments", "ingredients"] },
+    ]);
+
+    // filling author's field with only the username
+    for (const recipe of all) {
+      if (recipe.author) {
+        const username = recipe.author.personalInfos.username;
+        recipe.author = username;
+      }
+    }
+
+    res.status(200).json(all);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports.getRecipe = async function (req, res) {
+  const id = new ObjectId(req.params.id);
+  try {
+    const recipe = await Recipe.aggregate([
+      {
+        $match: {
+          _id: id,
+        },
+      },
       {
         $lookup: {
           from: "users",
@@ -45,24 +86,19 @@ module.exports.getAll = async function (req, res) {
       },
       { $unwind: "$author" },
     ]);
-    //console.log(all);
-    let dtoArray = [];
-    for (const recipe of allWithId) {
-      let dto = {};
-      dto["title"] = recipe.title;
-      dto["author"] = recipe.author.personalInfos.username;
-      dtoArray.push(dto);
-    }
-    for (const recipe of allWithId) {
-      console.log(recipe);
-      if (recipe.author) {
-        const username = recipe.author.personalInfos.username;
-        recipe.author = username;
-      }
-    }
 
-    res.status(200).json(allWithId);
-  } catch (error) {
-    console.log(error);
+    let dtoRecipe = {};
+    // if recipe has an element then we populate our dto
+    if (recipe.length > 0) {
+      dtoRecipe = recipe[0];
+      const username = dtoRecipe.author.personalInfos.username;
+      dtoRecipe.author = username;
+      res.status(200).json(dtoRecipe);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
   }
 };

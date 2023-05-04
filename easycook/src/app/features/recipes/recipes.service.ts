@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Recipe } from 'src/app/core/interfaces/recipe.interface';
+import { RecipeCard } from 'src/app/core/interfaces/recipeCard.interface';
 import { environment } from './../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { Recipe } from 'src/app/core/interfaces/recipe.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -10,9 +11,14 @@ import { Observable } from 'rxjs';
 export class RecipesService {
     constructor(private http: HttpClient) {}
 
-    getRecipes(): Observable<Array<Recipe>> {
-        return this.http.get<Array<Recipe>>(`${environment.apiUrl}recipes`);
+    getRecipes(): Observable<Array<RecipeCard>> {
+        return this.http.get<Array<RecipeCard>>(`${environment.apiUrl}/recipes`);
     }
-    createRecipe(recipeId: string): void {}
-    updateRecipe(recipeId: string, updateRecipeDto: Partial<Recipe>): void {}
+
+    getRecipeById(recipeId: number): Observable<Recipe> {
+        return this.http.get<Recipe>(`${environment.apiUrl}/recipes/${recipeId}`);
+    }
+
+    //createRecipe(recipeId: string): void {}
+    //updateRecipe(recipeId: string, updateRecipeDto: Partial<Recipe>): void {}
 }

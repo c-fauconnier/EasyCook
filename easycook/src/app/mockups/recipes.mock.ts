@@ -1,4 +1,4 @@
-import { Recipe } from '../core/interfaces/recipe.interface';
+import { Recipe } from '../core/interfaces/recipeCard.interface';
 
 export const Recipes: Array<Recipe> = [
     {

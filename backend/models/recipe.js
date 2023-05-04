@@ -28,6 +28,19 @@ const recipeSchema = new Schema({
   total_comments: Number,
   last_modification: Date,
   estimated_time: String,
+  cover: String,
+  resume: String,
+  category: {
+    type: String,
+    enum: ["entrée", "plat principal", "dessert"],
+    required: true,
+  },
+  ingredients: [
+    {
+      ingredient: { type: Schema.Types.ObjectId, ref: "Ingredient" },
+      quantity: { type: Number, required: false },
+    },
+  ],
   comments: [
     {
       //author: { type: Schema.Types.ObjectId, ref: "User" },
