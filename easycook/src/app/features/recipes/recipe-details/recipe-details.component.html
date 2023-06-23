@@ -1,0 +1,9 @@
+<div *ngIf="recipe">
+    <h1>{{ recipe.title }}</h1>
+    <h2>{{ recipe.author }}</h2>
+
+    <div *ngFor="let item of recipe.comments">
+        {{ item.comment }}-{{ item.date | date : 'dd/MM/yyyy' }}-{{ item.username }}-{{ item.rating }}
+    </div>
+    <button>Afficher tous les commentaires</button>
+</div>

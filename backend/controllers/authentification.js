@@ -3,21 +3,26 @@ const mongoose = require("mongoose");
 const User = require("../models/user");
 
 module.exports.register = async function (req, res) {
-  var user = new User(req.body);
-  await user.setPassword(req.body.password);
+  let data = {
+    personalInfos: req.body,
+  };
+  console.log(data);
+  var user = new User(data);
+  await user.setPassword(data.personalInfos.password);
 
   user
     .save()
     .then(function (err) {
       var token;
       token = user.generateJwt();
-      console.log("user: " + user.username + " created");
+      console.log("user: " + user.personalInfos.username + " created");
       res.status(200);
       res.status(200).json({
         token: token,
       });
     })
     .catch((err) => {
+      console.log(err);
       if (err.keyValue) {
         invalidField = Object.keys(err.keyValue)[0];
         msg = invalidField + " is already taken";
