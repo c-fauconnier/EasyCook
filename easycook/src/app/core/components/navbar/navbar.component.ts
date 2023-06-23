@@ -7,30 +7,7 @@ import { AuthenticationService } from 'src/app/auth/services/authentication.serv
     styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-    // boolean to add dynamically the 'aria-hidden' by attribute binding.
-    isMobile = window.innerWidth <= 1023;
+    constructor(public auth: AuthenticationService) {}
 
-    constructor(private el: ElementRef, public auth: AuthenticationService) {}
-
-    ngOnInit(): void {
-        this.onCloseWhenClickingOnMobile();
-    }
-
-    onCloseOnMobile() {
-        // removes the visibility class and adds the hidden class.
-        this.el.nativeElement.classList.remove('show-menu');
-        this.el.nativeElement.classList.add('hide-menu');
-        let button = document.getElementById('open-menu')!;
-        button.classList.remove('hide-menu');
-    }
-
-    onCloseWhenClickingOnMobile() {
-        // just on mobile devices.
-        if (window.innerWidth <= 1023) {
-            // when the menu or backdrop is clicked the menu is closed.
-            this.el.nativeElement.addEventListener('click', () => {
-                this.onCloseOnMobile();
-            });
-        }
-    }
+    ngOnInit(): void {}
 }

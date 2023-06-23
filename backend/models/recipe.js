@@ -23,9 +23,18 @@ const recipeSchema = new Schema({
     },
   ],
   difficulty: { type: Number, min: 0, max: 5 },
-  rating: Number,
-  total_ratings: Number,
-  total_comments: Number,
+  rating: {
+    type: Number,
+    default: 0,
+  },
+  total_ratings: {
+    type: Number,
+    default: 0,
+  },
+  total_comments: {
+    type: Number,
+    default: 0,
+  },
   last_modification: Date,
   estimated_time: String,
   cover: String,

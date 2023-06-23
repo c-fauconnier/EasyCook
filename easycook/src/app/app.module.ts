@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthenticationService } from './auth/services/authentication.service';
 import { AuthGuardService } from './auth/services/auth-guard.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [AppComponent, LandingPageComponent],
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
             positionClass: 'toast-top-right',
         }),
         HttpClientModule,
+        NgbModule,
     ],
     providers: [AuthenticationService, AuthGuardService],
     bootstrap: [AppComponent],

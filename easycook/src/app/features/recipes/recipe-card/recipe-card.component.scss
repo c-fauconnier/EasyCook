@@ -1,7 +1,3 @@
-.example-card {
-    max-width: 400px;
-    margin-bottom: 8px;
-}
 .recipe,
 .pizza-box {
     display: flex;
@@ -114,7 +110,7 @@ body {
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
-.card {
+.recipeCard {
     width: clamp(320px, 65%, 65%);
     padding: 24px;
     margin: auto;
@@ -122,4 +118,30 @@ body {
 
 article {
     background-color: white;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+//@import 'bootstrap/scss/bootstrap';
+//star rating classes
+i {
+    position: relative;
+    display: inline-block;
+    font-size: 1rem;
+    padding-right: 0.1rem;
+    color: #d3d3d3;
+}
+
+.filled {
+    color: #e91e63;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.visually-hidden {
+    visibility: hidden !important;
 }

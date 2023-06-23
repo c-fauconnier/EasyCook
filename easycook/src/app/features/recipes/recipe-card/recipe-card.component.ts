@@ -15,7 +15,6 @@ export class RecipeCardComponent {
 
     // Redirects to specific recipe
     onClickCard() {
-        console.log(this.recipeCard._id);
         this.router.navigateByUrl(`recipes/${this.recipeCard._id}`);
     }
 }

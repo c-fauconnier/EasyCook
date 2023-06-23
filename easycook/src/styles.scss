@@ -43,7 +43,6 @@ body {
 body {
     margin: 0;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
-    background-color: #fffaf0;
 }
 a {
     color: white;
@@ -62,28 +61,29 @@ a {
 please go to the project repository. The link 
 is available at the end of this post.  */
 
-@media screen and (min-width: 1024px) {
-    .mobile-only {
-        display: none;
-    }
-}
+// @media screen and (min-width: 1024px) {
+//     .mobile-only {
+//         display: none;
+//     }
+// }
 
-@media screen and (max-width: 1023px) {
-    .desktop-only {
-        display: none;
-    }
-}
+// @media screen and (max-width: 1023px) {
+//     .desktop-only {
+//         display: none;
+//     }
+// }
 
-.screen-reader-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-}
+// .screen-reader-only {
+//     position: absolute;
+//     width: 1px;
+//     height: 1px;
+//     padding: 0;
+//     margin: -1px;
+//     overflow: hidden;
+//     clip: rect(0, 0, 0, 0);
+//     border: 0;
+// }
+
 // regular style toast
 @import 'ngx-toastr/toastr';
 
@@ -99,3 +99,6 @@ is available at the end of this post.  */
     //position: relative;
     top: 100px !important;
 }
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';

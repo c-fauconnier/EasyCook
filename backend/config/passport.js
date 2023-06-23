@@ -19,7 +19,7 @@ passport.use(
           return done(null, res);
         } else {
           return done(null, false, {
-            message: "Password is wrong",
+            message: "Wrong password",
           });
         }
       }
